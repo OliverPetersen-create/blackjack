@@ -1,7 +1,14 @@
 const main = {
     page: document.querySelector(".main-menu"),
+    goal: document.querySelector(".main-menu >p"),
     playerNameInput: document.querySelector(".main-menu >input"),
-    startGameButton: document.querySelector(".main-menu >button")
+    startGameButton: document.querySelector(".main-menu >button"),
+	difficulty: {
+		"1": document.querySelector(".main-menu >div >button:nth-of-type(1)"),
+		"2": document.querySelector(".main-menu >div >button:nth-of-type(2)"),
+		"3": document.querySelector(".main-menu >div >button:nth-of-type(3)"),
+		"4": document.querySelector(".main-menu >div >button:nth-of-type(4)")
+	}
 };
 const game = {
     page: document.querySelector(".game-menu"),
@@ -26,9 +33,10 @@ const game = {
     placeBet: {
         page: document.querySelector(".game-menu >div >div:first-of-type"),
         input: document.querySelector(".game-menu >div >div:first-of-type >div >input"),
-        button: document.querySelector(".game-menu >div >div:first-of-type >div >button"),
+        button: document.querySelector(".game-menu >div >div:first-of-type >div >div >button:first-of-type"),
+        buttonMax: document.querySelector(".game-menu >div >div:first-of-type >div >div >button:nth-of-type(2)"),
         chips: document.querySelector(".game-menu >div >div:first-of-type >div >h2"),
-        chipDiv: document.querySelector(".game-menu >div >div:first-of-type >div >div")
+        chipDiv: document.querySelector(".game-menu >div >div:first-of-type >div >div:nth-of-type(2)")
     },
     playerName: document.querySelector(".game-menu >div >div:last-of-type >div >div:first-of-type >h1"),
     chips: document.querySelector(".game-menu >div >div:last-of-type >div >div:first-of-type >h2:first-of-type"),
@@ -49,25 +57,10 @@ const game = {
 };
 
 let cardDeck = {};
+let difficulty = 25;
 
-
-
-
-// For debugging
-
-// game.pause = true;
 // resetPlayer("Oliver");
-// game.player.aces.push([1, 3]);
-// game.player.aces.push([1, 0]);
-// resetDealer();
-// endGame(1);
 // showBetPage();
-// ace();
-// finishRound();
-
-
-
-
 
 addListeners();
 newCardDeck();
@@ -86,13 +79,25 @@ async function endGame(state=0) {
 	} else {
 		game.endGame.header.textContent = "Tillykke! Du vandt";
 		game.endGame.header.style.color = "lightgreen";
-		game.endGame.paragraph.textContent = "Du nåede $1000";
+		game.endGame.paragraph.textContent = "Du nåede $" + difficulty * 10;
 		game.endGame.tryAgain.textContent = "SPIL IGEN";
 	}
 
 	bounceAnimation(game.endGame.page);
 	await sleep(600);
 	game.pause = false;
+}
+
+function setDifficulty(index, value, color) {
+	difficulty = value;
+	for (let i = 1; i < 5; i++) {
+		if (i === index) continue;
+		main.difficulty[i].style.background = "gray";
+	}
+	main.difficulty[index].style.background = color
+	if (value != null) {
+		main.goal.textContent = "Start med 10 chips, hver værd $10, nå $" + difficulty * 10 + " for at vinde.";
+	} else main.goal.textContent = "Start med 10 chips, hver værd $10, få så mange penge som muligt."
 }
 
 function playAgain() {
@@ -120,14 +125,18 @@ function mainMenu() {
 	game.pause = false;
 }
 
-async function finishRound(result, multiplier=1) {
+async function finishRound(result) {
 	game.blackscreen.hidden = false;
 	game.result.page.hidden = false;
 
 	let state = result;
 	if (state == undefined) state = (game.player.cardTotal > 21 ? 0 : game.player.cardTotal) > (game.dealer.cardTotal > 21 ? 0 : game.dealer.cardTotal) ? 1 : (game.player.cardTotal > 21 ? 0 : game.player.cardTotal) === (game.dealer.cardTotal > 21 ? 0 : game.dealer.cardTotal) ? 2 : 0;
 
-	let reward = game.player.bet * 2 * multiplier;
+	console.log(game.player.hasBlackjack);
+
+	let multiplier = game.player.hasBlackjack ? 1: 0;
+
+	let reward = game.player.bet * 2 + (game.player.bet * multiplier);
 
 	if (state === 0) {
 		game.result.text.style.color = "red";
@@ -152,13 +161,17 @@ async function finishRound(result, multiplier=1) {
 
 function nextRound() {
 	if (game.pause) return;
-	if (game.player.chips > 99) {
-		endGame(1);
-	} else if (game.player.chips < 1) {
-		endGame(0);
-	} else {
-		resetRound();
+	if (difficulty != null) {
+		if (game.player.chips >= difficulty) {
+			endGame(1);
+			return;
+		}
 	}
+	if (game.player.chips < 1) {
+		endGame(0);
+		return;
+	}
+	resetRound();
 }
 
 function resetRound() {
@@ -169,6 +182,7 @@ function resetRound() {
 	game.player.aces = [];
 	game.player.cardTotal = 0;
 	game.player.bet = 0;
+	game.player.hasBlackjack = false;
 	game.dealer.cards = [];
 	game.dealer.aces = [];
 	game.dealer.cardTotal = 0;
@@ -228,6 +242,11 @@ function addListeners() {
     });
 }
 
+function maxBet() {
+	game.placeBet.input.value = game.player.chips;
+	game.placeBet.button.disabled = false;
+}
+
 async function placeBet() {
 	if (game.pause) return;
 	game.pause = true;
@@ -240,17 +259,27 @@ async function placeBet() {
 	updateBet(game.player.bet);
 	updateChips(game.player.chips);
 	showChips(game.chipsDiv, game.player.bet);
+	// throwCards(game.cardsPlayer, false, 250, [1,0]);
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer);
 	await sleep(100);
+	// throwCards(game.cardsPlayer, false, 250, [10,0]);
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer, true);
 	await sleep(600);
+	game.pause = false;
 	if (game.player.aces.length > 0) {
-		ace();
-	} else if (game.player.cardTotal === 21) {
+		if (game.player.cardTotal !== 10) {
+			ace();
+		} else {
+			game.player.cardTotal += 11;
+			setTotal(game.totalPlayer, game.player.cardTotal);
+			game.player.aces = [];
+		}
+	}
+	if (game.player.cardTotal === 21) {
 		stay();
-	} else game.pause = false;
+	}
 }
 
 async function ace(alreadyOpen) {
@@ -276,7 +305,10 @@ function chooseAce(num) {
 		game.blackscreen.hidden = true;
 		game.pause = false;
 		game.ace.page.hidden = true;
-		if (game.player.cardTotal === 21) stay();
+		if (game.player.cardTotal === 21) {
+			if (game.player.cards.length < 3) game.player.hasBlackjack = true;
+			stay();
+		}
 		if (game.player.cardTotal > 21) finishRound();
 	}
 }
@@ -403,7 +435,7 @@ async function stay() {
 	game.dealer.cardTotal += dealerAdd;
 	setTotal(game.totalDealer, game.dealer.cardTotal);
 	await sleep(1250);
-	while (game.dealer.cardTotal < 16 && game.dealer.cardTotal < game.player.cardTotal) {
+	while (game.dealer.cardTotal < 16 && game.player.cardTotal >= game.dealer.cardTotal) {
 		throwCards(game.cardsDealer, false, 200);
 		await sleep(1250);
 	}
@@ -440,6 +472,7 @@ function startGame() {
 function showBetPage() {
 	game.placeBet.page.hidden = false;
 	game.blackscreen.hidden = false;
+	game.placeBet.input.focus();
 	showChips(game.placeBet.chipDiv, game.player.chips);
 }
 
@@ -449,12 +482,22 @@ function showChips(container, chips, type=0) {
 	}
 	let maxDivs = Math.ceil(chips / 5)
 	for (let divs = 0; divs < maxDivs; divs++) {
-		const chipImg = document.createElement("img");
-		let chipStack = chips > 4 ? 5 : chips;
-		chipImg.src = "images/" + type +"-chips-" + chipStack + ".png";
-		chips -= chipStack;
+		if (divs < 10) {
+			const chipImg = document.createElement("img");
+			let chipStack = chips > 4 ? 5 : chips;
+			chipImg.src = "images/" + type +"-chips-" + chipStack + ".png";
+			chips -= chipStack;
 
-		container.appendChild(chipImg);
+			container.appendChild(chipImg);
+		} else {
+			const chipImg = document.createElement("p");
+			chipImg.className = "game-info-styling";
+			chipImg.style.fontSize = "1.875rem";
+			chipImg.textContent = "+ " + chips + " flere";
+
+			container.appendChild(chipImg);
+			return;
+		}
 	}
 }
 
@@ -465,7 +508,8 @@ function resetPlayer(name) {
         bet: 0,
 		cardTotal: 0,
 		cards: [],
-		aces: []
+		aces: [],
+		hasBlackjack: false
     };
     game.playerName.textContent = game.player.name;
 	updateBet(game.player.bet);
@@ -496,7 +540,7 @@ function updateBet(bet) {
 function bounceAnimation(container) {
 	for (let child of container.children) {
 		child.animate([
-			{transform: "translateY(50px)", opacity: "0"},
+			{transform: "translateY(3.125rem)", opacity: "0"},
 			{transform: "translateY(0)", opacty: "1"}
 		], 500);
 	}

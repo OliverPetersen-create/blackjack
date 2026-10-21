@@ -36,9 +36,16 @@
         <!-- <section class="main-menu" hidden> -->
         <section class="main-menu">
             
-            <input type="text" placeholder="Spillernavn">
-            <p>Start med 10 chips, hver værd $10, nå $1000 for at vinde.</p>
+            <input type="text" placeholder="Spillernavn" autofocus>
+            <p>Start med 10 chips, hver værd $10, nå $250 for at vinde.</p>
             <button onclick="startGame()" disabled>START SPIL</button>
+			<p class="game-info-styling">Sværhedsgrad</p>
+			<div>
+				<button onclick="setDifficulty(1, 25, 'lightgreen')">EASY</button>
+				<button onclick="setDifficulty(2, 50, 'orange')">MEDIUM</button>
+				<button onclick="setDifficulty(3, 100, 'lightcoral')">HARD</button>
+				<button onclick="setDifficulty(4, null, 'rgb(167, 78, 250)')">INF ∞</button>
+			</div>
         </section>
 
         <section class="game-menu" hidden>
@@ -48,10 +55,14 @@
                     <div>
                         <h1 class="game-info-styling">Hvor mange chips vil du bet?</h1>
                         <input type="text" placeholder="1">
-                        <button onclick="placeBet()">PLACER BET</button>
+                        <div>
+							<div></div>
+							<button onclick="placeBet()">PLACER BET</button>
+							<button onclick="maxBet()">MAX BET</button>
+						</div>
                         <h2 class="game-info-styling">Dine chips: 0</h1>
 						<div>
-
+							
 						</div>
                     </div>
                 </div>

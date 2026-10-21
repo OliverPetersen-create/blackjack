@@ -49,16 +49,15 @@ table {
 
 
 body {
-	position: relative;
     background-image: url("images/table.png");
     >h1 {
-        margin-top: 50px;
+        margin-top: 3.125rem;
         text-align: center;
-        font-size: 60px;
+        font-size: 3.75rem;
         font-weight: bold;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         color: goldenrod;
-        text-shadow: 0 0 2px black;
+        text-shadow: 0 0 0.125rem black;
     }
 }
 
@@ -67,43 +66,71 @@ body {
 
     >input {
         text-align: center;
-        margin-top: 150px;
-        width: 400px;
-        height: 50px;
+        margin-top: 9.375rem;
+        width: 25rem;
+        height: 3.125rem;
         background: rgb(135, 161, 130);
-        border: 2px solid black;
-        font-size: 30px;
+        border: 0.125rem solid black;
+        font-size: 1.875rem;
         color: rgb(61, 75, 58);
-        border-radius: 10px;
+        border-radius: 0.625rem;
 
     }
     >input::placeholder {
         color: rgb(61, 75, 58);
     }
 
-    >p {
-        margin: 50px auto 10px;
-        max-width: 900px;
-        font-size: 50px;
+    >p:first-of-type {
+        margin: 3.125rem auto 0.625rem;
+        max-width: 56.25rem;
+        font-size: 3.125rem;
         color: whitesmoke;
-        text-shadow: 0 0 4px black;
+        text-shadow: 0 0 0.25rem black;
         font-family: Arial, Helvetica, sans-serif;
     }
 
     >button {
-        margin-top: 30px;
-        width: 250px;
-        height: 50px;
-        border-radius: 4px;
-        font-size: 25px;
-        transition: transform 0.1s;
+        margin-top: 1.875rem;
+        width: 15.625rem;
+        height: 3.125rem;
+        font-size: 1.563rem;
     }
+
+	>p:nth-of-type(2) {
+		font-size: 1.875rem;
+		margin-top: 3.125rem;
+	}
+
+	>div {
+		display: flex;
+		justify-content: center;
+		gap: 0.625rem;
+		margin-top: 0.625rem;
+
+		>button {
+			width: 3.125rem;
+			height: 1.563rem;
+			font-size: 1rem;
+			text-align: center;
+		}
+		>button:nth-of-type(2) {
+			background: gray;
+		}
+		>button:nth-of-type(3) {
+			background: gray;
+		}
+		>button:nth-of-type(4) {
+			background: gray;
+		}
+	}
 }
 
 body >div:first-of-type {
 	z-index: 10;
-	position: absolute;
-	box-shadow: 0 0 0 1600px rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -118,22 +145,23 @@ body >div:nth-of-type(2) {
 		flex-direction: column;
 		text-align: center;
 		align-items: center;
-		margin-top: 200px;
+		margin-top: 12.5rem;
 
 		>p {
-			font-size: 50px;
+			font-size: 3.125rem;
 			color: lightgreen;
-			text-shadow: 0 0 2px black;
-			width: 1000px;
-			max-width: 1000px;
+			text-shadow: 0 0 0.125rem black;
+			width: 62.5rem;
+			max-width: 62.5rem;
 		}
 
 		>div {
 			display: flex;
 			justify-content: center;
-			width: 500px;
+			width: 31.25rem;
 			flex-wrap: wrap;
-			margin: 30px 0;
+			gap: 0.625rem;
+			margin: 1.875rem 0;
 
 			>* {
 				align-self: center;
@@ -141,10 +169,9 @@ body >div:nth-of-type(2) {
 		}
 		
 		>button {
-			width: 300px;
-			height: 50px;
-			border-radius: 4px;
-			font-size: 30px;
+			width: 18.75rem;
+			height: 3.125rem;
+			font-size: 1.875rem;
 		}
 	}
 }
@@ -160,18 +187,17 @@ body >div:nth-of-type(3) {
 		flex-direction: column;
 		text-align: center;
 		align-items: center;
-		margin-top: 200px;
+		margin-top: 12.5rem;
 
 		>div {
 			display: flex;
-			gap: 30px;
-			margin-top: 30px;
+			gap: 1.875rem;
+			margin-top: 1.875rem;
 
 			>button {
-				width: 125px;
-				height: 40px;
-				font-size: 30px;
-				border-radius: 4px;
+				width: 7.813rem;
+				height: 2.5rem;
+				font-size: 1.875rem;
 			}
 
 			>button:first-of-type {
@@ -195,37 +221,36 @@ body >div:nth-of-type(4) {
 		flex-direction: column;
 		text-align: center;
 		align-items: center;
-		margin-top: 200px;
+		margin-top: 12.5rem;
 
 		>h1 {
-			font-size: 50px;
-			width: 550px;
-			max-width: 550px;
+			font-size: 3.125rem;
+			width: 34.375rem;
+			max-width: 34.375rem;
 			color: lightgreen;
 		}
 
 		>p {
-			font-size: 30px;
-			width: 300px;
+			font-size: 1.875rem;
+			width: 18.75rem;
 			color: whitesmoke;
-			margin: 10px 0 30px;
+			margin: 0.625rem 0 1.875rem;
 		}
 
 		>div {
 			display: flex;
-			gap: 30px;
+			gap: 1.875rem;
 
 			>button {
-				width: 200px;
-				height: 50px;
-				font-size: 35px;
-				border-radius: 4px;
+				width: 12.5rem;
+				height: 3.125rem;
+				font-size: 2.188rem;
 			}
 
 			>button:first-of-type {
 				background:rgb(255, 0, 179);
 			}
-			
+
 			>button:last-of-type {
 				background: rgb(23, 221, 211);
 			}
@@ -250,47 +275,65 @@ body >div:nth-of-type(4) {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                margin-top: 150px;
+                margin-top: 9.375rem;
 
                 >h1 {
-                    font-size: 50px;
+                    font-size: 3.125rem;
                 }
 
                 >input {
-                    margin: 30px 0;
-                    width: 500px;
-                    height: 50px;
+                    margin: 1.875rem 0;
+                    width: 31.25rem;
+                    height: 3.125rem;
                     background: rgb(66, 66, 66);
-                    border: 1px solid white;
-                    border-radius: 6px;
+                    border: 0.063rem solid white;
+                    border-radius: 0.375rem;
                     text-align: center;
-                    font-size: 50px;
+                    font-size: 3.125rem;
                     color: whitesmoke;
                 }
 
-                >button {
-                    width: 300px;
-                    height: 50px;
-                    border-radius: 4px;
-                    font-size: 30px;
-                    transition: transform 0.1s;
-                }
+				>div:first-of-type {
+					display: flex;
+					justify-content: space-between;
+					gap: 1.25rem;
+
+					>div {
+						width: 6.25rem;
+						height: 3.125rem;
+					}
+
+					>button:first-of-type {
+						width: 18.75rem;
+						height: 3.125rem;
+						font-size: 1.875rem;
+						margin-left: auto;
+					}
+					>button:nth-of-type(2) {
+						width: 6.25rem;
+						height: 3.125rem;
+						font-size: 1.875rem;
+						background: rgb(23, 221, 211);
+						margin-left: auto;
+					}
+				}
 
 				>h2 {
-                    font-size: 40px;
-					margin: 40px 0 20px;
+                    font-size: 2.5rem;
+					margin: 2.5rem 0 1.25rem;
+					text-align: center;
                 }
 
-				>div > * {
+				>div:nth-of-type(2) > * {
 					align-self: center;
 				}
 
-				>div {
+				>div:nth-of-type(2) {
 					display: flex;
 					flex-wrap: wrap;
-					max-width: 900px;
+					max-width: 56.25rem;
 					justify-content: center;
-					gap: 10px;
+					gap: 0.625rem;
 				}
             }
         }
@@ -300,9 +343,10 @@ body >div:nth-of-type(4) {
 
 			>div {
 				display: flex;
-				justify-content: space-around;
+				justify-content: space-evenly;
 				flex-wrap: wrap;
-				gap: 30px;
+				height: calc(100vh - 6.875rem);
+				gap: 1.875rem;
 				position: relative;
 
 				>div:first-of-type {
@@ -310,20 +354,21 @@ body >div:nth-of-type(4) {
 					flex-direction: column;
 					align-items: center;
 					justify-content: start;
-					width: 300px;
-					margin: 60px 0 0 0;
+					width: 18.75rem;
+					margin-top: 3.75rem;
 
 					>h1 {
-						font-size: 40px;
+						font-size: 2.5rem;
 						
 					}
 					>h2 {
-						font-size: 30px;
-						margin-top: 10px;
+						font-size: 1.875rem;
+						margin-top: 0.625rem;
+						text-align: center;
 					}
 
 					>h2:last-of-type {
-						margin-bottom: 20px;
+						margin-bottom: 1.25rem;
 					}
 					
 					>div:first-of-type > * {
@@ -333,31 +378,31 @@ body >div:nth-of-type(4) {
 					>div:first-of-type {
 						display: flex;
 						flex-wrap: wrap;
-						max-width: 500px;
-						width: 500px;
+						width: 31.25rem;
+						max-width: 31.25rem;
 						justify-content: center;
-						gap: 10px;
+						gap: 0.625rem;
 					}
 					
 					>.player-cards-div {   /*  Cards div player   */
-						margin: 30px 0 10px 0;
+						margin: 1.875rem 0 0.625rem 0;
 						display: flex;
 						flex-direction: row;
 						justify-content: center;
 						flex-wrap: wrap;
-						gap: 10px;
+						gap: 0.625rem;
 						transition: transform 1s;
 					}
 
 					>div:last-of-type {
 						display: flex;
-						gap: 15px;
-						margin-top: 30px;
+						gap: 0.938rem;
+						margin-top: 1.875rem;
 
 						>button {
-							width: 75px;
-							height: 40px;
-							font-size: 30px;
+							width: 4.688rem;
+							height: 2.5rem;
+							font-size: 1.875rem;
 						}
 
 						>button:first-of-type {
@@ -372,9 +417,7 @@ body >div:nth-of-type(4) {
 
 				>img {
 					align-self: center;
-					margin-top: auto;
-					position: absolute;
-					top: 225px;
+					margin-bottom: 8.125rem;
 				}
 
 				>div:last-of-type {
@@ -382,20 +425,20 @@ body >div:nth-of-type(4) {
 					flex-direction: column;
 					align-items: center;
 					justify-content: start;
-					width: 300px;
-					margin: 60px 0 0 0;
+					width: 18.75rem;
+					margin-top: 3.75rem;
 
 					>h1 {
-						font-size: 40px;
+						font-size: 2.5rem;
 					}
 
 					>div:last-of-type {   /*  Cards div dealer   */
-						margin: 30px 0 10px 0;
+						margin: 1.875rem 0 0.625rem 0;
 						display: flex;
 						flex-direction: row;
 						justify-content: center;
 						flex-wrap: wrap;
-						gap: 10px;
+						gap: 0.625rem;
 					}
 				}
 			}
@@ -406,13 +449,15 @@ body >div:nth-of-type(4) {
 	font-weight: bold;
 	font-family:Verdana, Geneva, Tahoma, sans-serif;
 	color: whitesmoke;
-	text-shadow: 0 0 2px black;
+	text-shadow: 0 0 0.125rem black;
 }
 button {
 	box-sizing: content-box;
 	border: none;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	color: rgb(61, 61, 61);
+	border-radius: 0.25rem;
+	transition: transform 0.1s;
 }
 button:enabled {
 	background: lightgreen;
