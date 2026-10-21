@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+		<div hidden></div>
+		
+		<div hidden>
+			<div>
+				<p class="game-info-styling"></p>
+				<div></div>
+				<button onclick="nextRound()">NÆSTE RUNDE</button>
+			</div>
+		</div>
+		<div hidden>
+			<div>
+				<img src="images/1.png">
+				<div>
+					<button onclick="chooseAce(1)">1</button>
+					<button onclick="chooseAce(11)">11</button>
+				</div>
+			</div>
+		</div>
+		<div hidden>
+			<div>
+				<h1 class="game-info-styling"></h1>
+				<p class="game-info-styling"></p>
+				<div>
+					<button onclick="mainMenu()">MAIN MENU</button>
+					<button onclick="playAgain()">SPIL IGEN</button>
+				</div>
+			</div>
+		</div>
+        <h1>Blackjack</h1>
+        <!-- <section class="main-menu" hidden> -->
+        <section class="main-menu">
+            
+            <input type="text" placeholder="Spillernavn">
+            <p>Start med 10 chips, hver værd $10, nå $1000 for at vinde.</p>
+            <button onclick="startGame()" disabled>START SPIL</button>
+        </section>
+
+        <section class="game-menu" hidden>
+        <!-- <section class="game-menu"> -->
+            <div>
+                <div hidden>
+                    <div>
+                        <h1 class="game-info-styling">Hvor mange chips vil du bet?</h1>
+                        <input type="text" placeholder="1">
+                        <button onclick="placeBet()">PLACER BET</button>
+                        <h2 class="game-info-styling">Dine chips: 0</h1>
+						<div>
+
+						</div>
+                    </div>
+                </div>
+                <div>
+					<div>
+						<div>
+							<h1 class="game-info-styling">Spillernavn</h1>
+							<h2 class="game-info-styling">Chips: 0 ($0)</h2>
+							<h2 class="game-info-styling">Bet: 0 chips</h2>
+							<div> <!-- Chips div -->
+								
+							</div>
+							
+							<div class="player-cards-div"> <!-- Cards div -->
+
+							</div>
+							<h3 class="game-info-styling" hidden>Total: 0</h3>
+							<div> <!-- Buttons -->
+								<button onclick="stay()" hidden>STAY</button>
+								<button onclick="hit()" hidden>HIT</button>
+							</div>
+						</div>
+						<img src="images/1-stack.png">
+						<div>
+							<h1 class="game-info-styling">Dealer</h1>
+							<div> <!-- Chips div -->
+								
+							</div>
+							<h3 class="game-info-styling" hidden>Total: 0</h3>
+						</div>
+					</div>
+                </div>
+            </div>
+        </section>
+        <script src="index.js"></script>
+    </body>
+</html>

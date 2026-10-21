@@ -1,0 +1,428 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+/* article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+} */
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+body {
+	position: relative;
+    background-image: url("images/table.png");
+    >h1 {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 60px;
+        font-weight: bold;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: goldenrod;
+        text-shadow: 0 0 2px black;
+    }
+}
+
+.main-menu {
+    text-align: center;
+
+    >input {
+        text-align: center;
+        margin-top: 150px;
+        width: 400px;
+        height: 50px;
+        background: rgb(135, 161, 130);
+        border: 2px solid black;
+        font-size: 30px;
+        color: rgb(61, 75, 58);
+        border-radius: 10px;
+
+    }
+    >input::placeholder {
+        color: rgb(61, 75, 58);
+    }
+
+    >p {
+        margin: 50px auto 10px;
+        max-width: 900px;
+        font-size: 50px;
+        color: whitesmoke;
+        text-shadow: 0 0 4px black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    >button {
+        margin-top: 30px;
+        width: 250px;
+        height: 50px;
+        border-radius: 4px;
+        font-size: 25px;
+        transition: transform 0.1s;
+    }
+}
+
+body >div:first-of-type {
+	z-index: 10;
+	position: absolute;
+	box-shadow: 0 0 0 1600px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+body >div:nth-of-type(2) {
+	z-index: 11;
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	
+	>div {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		margin-top: 200px;
+
+		>p {
+			font-size: 50px;
+			color: lightgreen;
+			text-shadow: 0 0 2px black;
+			width: 1000px;
+			max-width: 1000px;
+		}
+
+		>div {
+			display: flex;
+			justify-content: center;
+			width: 500px;
+			flex-wrap: wrap;
+			margin: 30px 0;
+
+			>* {
+				align-self: center;
+			}
+		}
+		
+		>button {
+			width: 300px;
+			height: 50px;
+			border-radius: 4px;
+			font-size: 30px;
+		}
+	}
+}
+
+body >div:nth-of-type(3) {
+	z-index: 11;
+	position: absolute;
+	left: 50%;
+	right: 50%;
+
+	>div {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		margin-top: 200px;
+
+		>div {
+			display: flex;
+			gap: 30px;
+			margin-top: 30px;
+
+			>button {
+				width: 125px;
+				height: 40px;
+				font-size: 30px;
+				border-radius: 4px;
+			}
+
+			>button:first-of-type {
+				background:rgb(255, 0, 179);
+			}
+			>button:last-of-type {
+				background: rgb(23, 221, 211);
+			}
+		}
+	}
+}
+
+body >div:nth-of-type(4) {
+	z-index: 11;
+	position: absolute;
+	left: 50%;
+	right: 50%;
+
+	>div {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		margin-top: 200px;
+
+		>h1 {
+			font-size: 50px;
+			width: 550px;
+			max-width: 550px;
+			color: lightgreen;
+		}
+
+		>p {
+			font-size: 30px;
+			width: 300px;
+			color: whitesmoke;
+			margin: 10px 0 30px;
+		}
+
+		>div {
+			display: flex;
+			gap: 30px;
+
+			>button {
+				width: 200px;
+				height: 50px;
+				font-size: 35px;
+				border-radius: 4px;
+			}
+
+			>button:first-of-type {
+				background:rgb(255, 0, 179);
+			}
+			
+			>button:last-of-type {
+				background: rgb(23, 221, 211);
+			}
+		}
+	}
+}
+
+.game-menu {
+
+    >div > * {
+        grid-area: pile;
+    }
+    >div {
+        display: grid;
+        grid-template-areas: 'pile';
+
+        >div:first-of-type {
+			z-index: 11;
+            
+            >div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-top: 150px;
+
+                >h1 {
+                    font-size: 50px;
+                }
+
+                >input {
+                    margin: 30px 0;
+                    width: 500px;
+                    height: 50px;
+                    background: rgb(66, 66, 66);
+                    border: 1px solid white;
+                    border-radius: 6px;
+                    text-align: center;
+                    font-size: 50px;
+                    color: whitesmoke;
+                }
+
+                >button {
+                    width: 300px;
+                    height: 50px;
+                    border-radius: 4px;
+                    font-size: 30px;
+                    transition: transform 0.1s;
+                }
+
+				>h2 {
+                    font-size: 40px;
+					margin: 40px 0 20px;
+                }
+
+				>div > * {
+					align-self: center;
+				}
+
+				>div {
+					display: flex;
+					flex-wrap: wrap;
+					max-width: 900px;
+					justify-content: center;
+					gap: 10px;
+				}
+            }
+        }
+
+        >div:last-of-type {
+            z-index: 1;
+
+			>div {
+				display: flex;
+				justify-content: space-around;
+				flex-wrap: wrap;
+				gap: 30px;
+				position: relative;
+
+				>div:first-of-type {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: start;
+					width: 300px;
+					margin: 60px 0 0 0;
+
+					>h1 {
+						font-size: 40px;
+						
+					}
+					>h2 {
+						font-size: 30px;
+						margin-top: 10px;
+					}
+
+					>h2:last-of-type {
+						margin-bottom: 20px;
+					}
+					
+					>div:first-of-type > * {
+						align-self: center;
+					}
+
+					>div:first-of-type {
+						display: flex;
+						flex-wrap: wrap;
+						max-width: 500px;
+						width: 500px;
+						justify-content: center;
+						gap: 10px;
+					}
+					
+					>.player-cards-div {   /*  Cards div player   */
+						margin: 30px 0 10px 0;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						flex-wrap: wrap;
+						gap: 10px;
+						transition: transform 1s;
+					}
+
+					>div:last-of-type {
+						display: flex;
+						gap: 15px;
+						margin-top: 30px;
+
+						>button {
+							width: 75px;
+							height: 40px;
+							font-size: 30px;
+						}
+
+						>button:first-of-type {
+							background:rgb(255, 0, 179);
+						}
+
+						>button:last-of-type {
+							background: rgb(23, 221, 211);
+						}
+					}
+				}
+
+				>img {
+					align-self: center;
+					margin-top: auto;
+					position: absolute;
+					top: 225px;
+				}
+
+				>div:last-of-type {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: start;
+					width: 300px;
+					margin: 60px 0 0 0;
+
+					>h1 {
+						font-size: 40px;
+					}
+
+					>div:last-of-type {   /*  Cards div dealer   */
+						margin: 30px 0 10px 0;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						flex-wrap: wrap;
+						gap: 10px;
+					}
+				}
+			}
+    	}
+    }
+}
+.game-info-styling {
+	font-weight: bold;
+	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	color: whitesmoke;
+	text-shadow: 0 0 2px black;
+}
+button {
+	box-sizing: content-box;
+	border: none;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	color: rgb(61, 61, 61);
+}
+button:enabled {
+	background: lightgreen;
+}
+button:disabled {
+	background: gray;
+}
+button:enabled:hover {
+	transform: scale(1.05);
+}
+button:enabled:active {
+	transform: scale(1);
+}
