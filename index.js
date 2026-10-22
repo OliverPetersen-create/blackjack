@@ -58,8 +58,10 @@ const game = {
 
 let cardDeck = {};
 let difficulty = 25;
+let defaultCardSpeed = 500;
 
 // resetPlayer("Oliver");
+// resetDealer();
 // showBetPage();
 
 addListeners();
@@ -134,9 +136,9 @@ async function finishRound(result) {
 
 	console.log(game.player.hasBlackjack);
 
-	let multiplier = game.player.hasBlackjack ? 1: 0;
+	let multiplier = game.player.hasBlackjack ? 0.5 : 0;
 
-	let reward = game.player.bet * 2 + (game.player.bet * multiplier);
+	let reward = game.player.bet * 2 + Math.floor(game.player.bet * multiplier);
 
 	if (state === 0) {
 		game.result.text.style.color = "red";
@@ -259,14 +261,14 @@ async function placeBet() {
 	updateBet(game.player.bet);
 	updateChips(game.player.chips);
 	showChips(game.chipsDiv, game.player.bet);
-	// throwCards(game.cardsPlayer, false, 250, [1,0]);
+	// throwCards(game.cardsPlayer, false, 500, [1,0]);
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer);
 	await sleep(100);
-	// throwCards(game.cardsPlayer, false, 250, [10,0]);
+	// throwCards(game.cardsPlayer, false, 500, [10,0]);
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer, true);
-	await sleep(600);
+	await sleep(defaultCardSpeed + 100);
 	game.pause = false;
 	if (game.player.aces.length > 0) {
 		if (game.player.cardTotal !== 10) {
@@ -275,6 +277,7 @@ async function placeBet() {
 			game.player.cardTotal += 11;
 			setTotal(game.totalPlayer, game.player.cardTotal);
 			game.player.aces = [];
+			if (game.player.cards.length < 3) game.player.hasBlackjack = true;
 		}
 	}
 	if (game.player.cardTotal === 21) {
@@ -306,7 +309,6 @@ function chooseAce(num) {
 		game.pause = false;
 		game.ace.page.hidden = true;
 		if (game.player.cardTotal === 21) {
-			if (game.player.cards.length < 3) game.player.hasBlackjack = true;
 			stay();
 		}
 		if (game.player.cardTotal > 21) finishRound();
@@ -322,7 +324,7 @@ function getOffset(el, el2) {
   };
 }
 
-async function throwCards(player, hidden, speed=250, forceCard) {
+async function throwCards(player, hidden, speed=defaultCardSpeed, forceCard) {
 	const card = document.createElement("img");
 	card.hidden = "until-found";
 	card.src = "images/1.png";
@@ -344,16 +346,17 @@ async function throwCards(player, hidden, speed=250, forceCard) {
 			let offset = getOffset(card, game.cardDeck);
 			card.animate([
 				{transform: "translateX(" + offset.left * -1 + "px) translateY(" + offset.top * -1 + "px) rotateY(180deg)"},
-				{transform: "translateX(" + offset.left * -1 / 2 + "px) translateY(" + offset.top * -1 / 2 + "px) rotateY(90deg)"}
-			], speed);
-			card.hidden = false;
-			await sleep(speed);
-			card.src = getCardPng(randomCard);
-			card.animate([
-				{transform: "translateX(" + offset.left * -1 / 2 + "px) translateY(" + offset.top * -1 / 2 + "px) rotateY(90deg)"},
+				// {transform: "translateX(" + offset.left * -1 / 2 + "px) translateY(" + offset.top * -1 / 2 + "px) rotateY(90deg)"}
 				{transform: "translateX(0) translateY(0) rotateY(0)"}
 			], speed);
-			await sleep(speed);
+			card.hidden = false;
+			await sleep(speed / 2);
+			card.src = getCardPng(randomCard);
+			// card.animate([
+			// 	{transform: "translateX(" + offset.left * -1 / 2 + "px) translateY(" + offset.top * -1 / 2 + "px) rotateY(90deg)"},
+			// 	{transform: "translateX(0) translateY(0) rotateY(0)"}
+			// ], speed);
+			await sleep(speed / 2);
 			if (player === game.cardsPlayer) {
 				if (getCardValue(randomCard[0]).length < 2 || (getCardValue(randomCard[0]).length > 1 && game.player.cardTotal + 11 > 21)) {
 					game.player.cardTotal += getCardValue(randomCard[0])[0];
@@ -395,7 +398,7 @@ async function hit() {
 	if (game.pause) return;
 	game.pause = true;
 	throwCards(game.cardsPlayer);
-	await sleep(600);
+	await sleep(defaultCardSpeed + 100);
 	game.pause = false;
 	if (game.player.cardTotal > 21) {
 		finishRound()
@@ -436,7 +439,7 @@ async function stay() {
 	setTotal(game.totalDealer, game.dealer.cardTotal);
 	await sleep(1250);
 	while (game.dealer.cardTotal < 16 && game.player.cardTotal >= game.dealer.cardTotal) {
-		throwCards(game.cardsDealer, false, 200);
+		throwCards(game.cardsDealer, false, 450);
 		await sleep(1250);
 	}
 	finishRound();
