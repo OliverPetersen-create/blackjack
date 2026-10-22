@@ -265,7 +265,7 @@ async function placeBet() {
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer);
 	await sleep(100);
-	// throwCards(game.cardsPlayer, false, 500, [10,0]);
+	// throwCards(game.cardsPlayer, false, 500, [1, 0]);
 	throwCards(game.cardsPlayer);
 	throwCards(game.cardsDealer, true);
 	await sleep(defaultCardSpeed + 100);
@@ -302,17 +302,22 @@ function chooseAce(num) {
 	game.player.cardTotal += num;
 	setTotal(game.totalPlayer, game.player.cardTotal);
 	game.player.aces.pop();
-	if (game.player.aces.length > 0) {
-		ace(true);
-	} else {
-		game.blackscreen.hidden = true;
-		game.pause = false;
-		game.ace.page.hidden = true;
-		if (game.player.cardTotal === 21) {
-			stay();
+	while (game.player.aces.length > 0) {
+		if (game.player.cardTotal + 11 < 22) {
+			ace(true);
+			return;
 		}
-		if (game.player.cardTotal > 21) finishRound();
+		game.player.cardTotal += 1;
+		setTotal(game.totalPlayer, game.player.cardTotal);
+		game.player.aces.pop();
 	}
+	game.blackscreen.hidden = true;
+	game.pause = false;
+	game.ace.page.hidden = true;
+	if (game.player.cardTotal === 21) {
+		stay();
+	}
+	if (game.player.cardTotal > 21) finishRound();
 }
 
 function getOffset(el, el2) {
