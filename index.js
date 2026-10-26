@@ -58,7 +58,7 @@ const game = {
 
 let cardDeck = {};
 let difficulty = 25;
-let defaultCardSpeed = 500;
+const defaultCardSpeed = 500;
 
 // resetPlayer("Oliver");
 // resetDealer();
@@ -485,28 +485,19 @@ function showBetPage() {
 }
 
 function showChips(container, chips, type=0) {
-	while (container.lastChild) {
-		container.removeChild(container.lastChild);
-	}
+	let html = "";
 	let maxDivs = Math.ceil(chips / 5)
 	for (let divs = 0; divs < maxDivs; divs++) {
 		if (divs < 10) {
-			const chipImg = document.createElement("img");
 			let chipStack = chips > 4 ? 5 : chips;
-			chipImg.src = "images/" + type +"-chips-" + chipStack + ".png";
+			html += "<img src='images/" + type + "-chips-" + chipStack + ".png'>";
 			chips -= chipStack;
-
-			container.appendChild(chipImg);
 		} else {
-			const chipImg = document.createElement("p");
-			chipImg.className = "game-info-styling";
-			chipImg.style.fontSize = "1.875rem";
-			chipImg.textContent = "+ " + chips + " flere";
-
-			container.appendChild(chipImg);
-			return;
+			html += "<p class='chips-too-many game-info-styling'>+ " + chips + " flere</p>";
+			break;
 		}
 	}
+	container.innerHTML = html;
 }
 
 function resetPlayer(name) {
